@@ -1,0 +1,16 @@
+<h2>News articles about {{searchTerm}}</h2>
+<section class="news">
+    <div *ngIf="newsList && newsList.articles.length > 0">
+       <ul class="col-ms-6 col-md-3 feed" *ngFor="let news of newsList.articles">          
+            <div class="content">
+              <a href="{{news.url}}" target="_blank">
+                <img src="{{news.urlToImage}}" >
+                <h3 class="text-center">{{news.title}}</h3>
+                <!-- Author: {{news.author}}<BR> -->              
+                <p>(source - {{news.source.name}})</p>
+              </a>    
+                
+            </div>
+       </ul>
+    </div>
+</section>
