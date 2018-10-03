@@ -10,7 +10,7 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class NewsapiService {
 
-  private newsApiUrl = '';  // URL to web api
+  private newsApiUrl;
 
   constructor(private http: HttpClient,
     private configuration: Configuration) { }
@@ -30,13 +30,41 @@ export class NewsapiService {
 
   }
 
-  /** GET news from the server for specific term*/
+  /**
+   * GET news from the server for specific term.
+   * @param searchTerm - term to be searched
+   */
   getNewsList (searchTerm: string) {
 
       // form the url using configuration and searchTerm
       this.formURL(searchTerm);
 
       console.log ('The URL is: ' + this.newsApiUrl) ;
+
+      return this.http.get(this.newsApiUrl)
+      .pipe(tap(news => console.log(news)),
+        catchError(this.handleError('getNewsList', [])));
+
+  }
+
+  //
+  /**
+   * GET news from the server for specific term.
+   * @param searchTerm - term to be searched
+   */
+  getNewsListByPopularity (searchTerm: string) {
+
+      console.log ('Before URL is: ' + this.newsApiUrl);
+
+      // form the url if not already formed
+      if (this.newsApiUrl == null) {
+          this.formURL(searchTerm);
+          console.log ('Pop called: ' + this.newsApiUrl);
+      }
+
+      this.newsApiUrl = this.newsApiUrl + '&sortBy=popularity';
+
+      console.log ('After URL is: ' + this.newsApiUrl) ;
 
       return this.http.get(this.newsApiUrl)
       .pipe(tap(news => console.log(news)),
