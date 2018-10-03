@@ -2,7 +2,7 @@ h1 {
   font-size: 4.2em;
   color: black;
   margin-bottom: 0;
-  background-color: aliceblue;
+  background-color: #6cf;
 }
 h2 {
   font-size: 2em;
@@ -27,4 +27,12 @@ nav a:hover {
 }
 nav a.active {
   color: #039be5;
+}
+footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:40px;
+  background-color: #6cf;
 }
